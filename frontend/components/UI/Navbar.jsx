@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='text-white font-Roboto flex justify-between w-[90%] mx-auto py-3 border-b-[0.5px] border-[#161616] items-center'>
+    <nav className='text-white font-Roboto flex justify-between w-screen px-20 mx-auto py-3 border-b-[1px] border-[#161616] items-center'>
       <p className=''>LXLY Scan</p>
       <button
         onClick={connectWallet}

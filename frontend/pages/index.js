@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import Search from '@/components/search';
 import SearchBar from '@/components/UI/SearchBar';
 import Overview from '@/components/Overview/Overview';
+import RecentTransactionList from '@/components/RecentTrans/RecentTransactionList';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -12,6 +13,7 @@ export default function Home() {
       {/* <Search /> */}
       <SearchBar />
       <Overview />
+      <RecentTransactionList />
     </div>
   );
 }
