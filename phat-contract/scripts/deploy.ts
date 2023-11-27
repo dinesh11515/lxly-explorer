@@ -25,8 +25,6 @@ async function main() {
   `;
   console.log(`\n${finalMessage}\n`);
 
-  console.log("Sending a request...");
-  await consumer.connect(deployer).registerClaimer(deployer.address);
   console.log("Done");
 }
 

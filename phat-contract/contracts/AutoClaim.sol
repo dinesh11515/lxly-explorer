@@ -10,7 +10,7 @@ error AlreadyRegistered();
 contract AutoClaim is PhatRollupAnchor, Ownable {
     event AutoClaimed(uint reqId, string reqData, uint256 value);
     event NotReady(uint reqId);
-    event NewRegister(address _addressy, uint timepoint);
+    event NewRegister(address _address, uint timepoint);
 
     uint constant TYPE_READY = 0;
     uint constant TYPE_NOTREADY = 2;
