@@ -5,7 +5,7 @@ import transaction from "../models/transaction.js";
 export const getTransaction = async () => {
   try {
     const data = await fetch(
-      `${goerliApi}?module=account&action=txlist&address=${goerliBridgeAddress}&sort=desc&offset=10&page=1&apikey=${process.env.GOERLI_KEY}`
+      `${goerliApi}?module=account&action=txlist&address=${goerliBridgeAddress}&sort=desc&offset=1&page=1&apikey=${process.env.GOERLI_KEY}`
     );
 
     const response = await data.json();

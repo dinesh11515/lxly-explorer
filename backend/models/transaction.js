@@ -14,6 +14,9 @@ const assetTransactionSchema = new Schema(
     originCalledMethod: {
       type: String,
     },
+    originData: {
+      type: Schema.Types.Mixed,
+    },
     destinationAddress: {
       type: String,
     },
@@ -25,6 +28,9 @@ const assetTransactionSchema = new Schema(
     },
     destinationCalledMethod: {
       type: String,
+    },
+    destinationData: {
+      type: Schema.Types.Mixed,
     },
     value: {
       type: String,

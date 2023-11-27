@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import Logging from "./lib/Logging.js";
 
 import transactionRoutes from "./routes/transaction.js";
+import { goerliEventListener } from "./events/parse-event.js";
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use(transactionRoutes);
+
+goerliEventListener();
 
 mongoose
   .connect(process.env.MONGO_URI)
