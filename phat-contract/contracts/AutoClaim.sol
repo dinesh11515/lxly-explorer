@@ -10,6 +10,7 @@ error AlreadyRegistered();
 contract AutoClaim is PhatRollupAnchor, Ownable {
     event AutoClaimed(uint reqId, string reqData, uint256 value);
     event NotReady(uint reqId);
+    event NewRegister(address _address, uint timepoint);
 
     uint constant TYPE_READY = 0;
     uint constant TYPE_NOTREADY = 2;
@@ -17,8 +18,7 @@ contract AutoClaim is PhatRollupAnchor, Ownable {
     IPolygonZkEVMBridge public immutable polygonZkEVMBridge;
 
     uint nextRequest = 1;
-    address[] public registeredAddresses;
-    mapping(address => bool) addressByRegistered;
+    mapping(address => bool) addressesRegistered;
 
     constructor(address phatAttestor, IPolygonZkEVMBridge _polygonZkEVMBridge) {
         _grantRole(PhatRollupAnchor.ATTESTOR_ROLE, phatAttestor);
@@ -30,15 +30,11 @@ contract AutoClaim is PhatRollupAnchor, Ownable {
     }
 
     function registerClaimer(address _address) external {
-        if (addressByRegistered[_address]) {
+        if (addressesRegistered[_address]) {
             revert AlreadyRegistered();
         }
-        addressByRegistered[_address] = true;
-        registeredAddresses.push(_address);
-    }
-
-    function getRegisteredAddresses() public view returns (address[] memory) {
-        return registeredAddresses;
+        addressesRegistered[_address] = true;
+        emit NewRegister(_address, block.timestamp);
     }
 
     // need to restrict this with chainlink
