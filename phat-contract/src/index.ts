@@ -1,5 +1,11 @@
 import "@phala/pink-env";
-import { Coders, AbiCoder, Contract, JsonRpcProvider } from "@phala/ethers";
+import {
+  Coders,
+  AbiCoder,
+  Contract,
+  JsonRpcProvider,
+  ethers,
+} from "@phala/ethers";
 
 type HexString = `0x${string}`;
 
@@ -106,18 +112,26 @@ function fetchMerkleProofs(): any {
 
 export default function main(): HexString {
   try {
-    // const provider = new JsonRpcProvider(
-    //   "https://eth-goerli.g.alchemy.com/v2/_JhWE6m1C1VYWqcaISsadFcxyqMZ5siL"
-    // );
-
-    const autoContract = new Contract(
-      contractAddress,
-      abi,
-      new JsonRpcProvider("goerli")
+    const provider = new ethers.JsonRpcProvider(
+      "https://eth-goerli.g.alchemy.com/v2/_JhWE6m1C1VYWqcaISsadFcxyqMZ5siL"
     );
 
-    const registeredAddresses = autoContract.getRegisteredAddresses();
-    console.log(registeredAddresses);
+    // const autoContract = new Contract(
+    //   contractAddress,
+    //   abi,
+    //   new JsonRpcProvider("goerli")
+    // );
+    // const contractOutput = pink.invokeContract({
+    //   callee:
+    //     "0x0000000000000000000000000000000000000000000000000000000000000000",
+    //   input: "0x00",
+    //   selector: 0xdeadbeef,
+    //   gasLimit: 0n,
+    //   value: 0n,
+    // });
+
+    // const registeredAddresses = autoContract.getRegisteredAddresses();
+    // console.log(registeredAddresses);
     // const respData = fetchMerkleProofs();
     // console.log("response:", respData);
 
