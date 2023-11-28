@@ -13,6 +13,7 @@ type BridgeEvent @entity(immutable: true) {
   transactionHash: Bytes!
   gasLimit: BigInt!
   from: Bytes!
+  network: String!
 }
 
 type ClaimEvent @entity(immutable: true) {
@@ -27,4 +28,5 @@ type ClaimEvent @entity(immutable: true) {
   from: Bytes
   to: Bytes
   blockTimestamp: BigInt!
+  network: String!
 }

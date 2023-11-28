@@ -28,6 +28,7 @@ export function handleBridgeEvent(event: BridgeEvent): void {
   entity.from = event.transaction.from;
   entity.transactionHash = event.transaction.hash;
   entity.blockTimestamp = event.block.timestamp;
+  entity.network = "Goerli";
 
   entity.save();
 }
@@ -54,6 +55,7 @@ export function handleClaimEvent(event: ClaimEvent): void {
   entity.from = event.transaction.from;
   entity.to = event.transaction.to;
   entity.blockTimestamp = event.block.timestamp;
+  entity.network = "Goerli";
 
   entity.save();
 }

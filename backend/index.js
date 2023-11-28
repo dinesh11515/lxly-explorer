@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 app.use(transactionRoutes);
 
-goerliEventListener();
+// goerliEventListener();
 
 mongoose
   .connect(process.env.MONGO_URI)

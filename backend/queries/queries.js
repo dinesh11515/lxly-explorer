@@ -7,6 +7,8 @@ export const bridgeQuery = gql`
       leafType
       originNetwork
       originAddress
+      blockTimestamp
+      network
     }
   }
 `;
@@ -18,28 +20,34 @@ export const claimQuery = gql`
       index
       originNetwork
       destinationAddress
+      blockTimestamp
+      network
     }
   }
 `;
 
 export const bridgeQueryFromTxHash = gql`
-  query bridgeQuery($transactionHash: Bytes!) {
-    bridgeEvents(where: { transactionHash: $transactionHash }) {
+  query bridgeQuery($txHash: String!) {
+    bridgeEvents(where: { transactionHash: $txHash }) {
       id
       depositCount
       originNetwork
       destinationAddress
+      blockTimestamp
+      network
     }
   }
 `;
 
 export const claimQueryFromTxHash = gql`
-  query claimQuery($transactionHash: Bytes!) {
-    claimEvents(where: { transactionHash: $transactionHash }) {
+  query claimQuery($txHash: String!) {
+    claimEvents(where: { transactionHash: $txHash }) {
       id
       index
       originNetwork
       destinationAddress
+      blockTimestamp
+      network
     }
   }
 `;
@@ -51,6 +59,8 @@ export const bridgeQueryFromIndex = gql`
       depositCount
       originNetwork
       destinationAddress
+      blockTimestamp
+      network
     }
   }
 `;
@@ -62,6 +72,8 @@ export const claimQueryFromIndex = gql`
       index
       originNetwork
       destinationAddress
+      blockTimestamp
+      network
     }
   }
 `;
@@ -73,6 +85,8 @@ export const recentBridgeQuery = gql`
       depositCount
       originNetwork
       destinationAddress
+      blockTimestamp
+      network
     }
   }
 `;
@@ -84,6 +98,8 @@ export const recentClaimQuery = gql`
       index
       originNetwork
       destinationAddress
+      blockTimestamp
+      network
     }
   }
 `;
@@ -97,6 +113,8 @@ export const bridgeQueryFromAddress = gql`
       depositCount
       originNetwork
       destinationAddress
+      blockTimestamp
+      network
     }
   }
 `;
@@ -110,6 +128,8 @@ export const claimQueryFromAddress = gql`
       index
       originNetwork
       destinationAddress
+      blockTimestamp
+      network
     }
   }
 `;
