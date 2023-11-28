@@ -26,4 +26,5 @@ type ClaimEvent @entity(immutable: true) {
   gasLimit: BigInt
   from: Bytes
   to: Bytes
+  blockTimestamp: BigInt!
 }

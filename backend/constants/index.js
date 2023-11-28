@@ -7,6 +7,12 @@ export const polygonZkEvmApi = "https://api-testnet-zkevm.polygonscan.com/api";
 
 export const goerliApi = "https://api-goerli.etherscan.io/api";
 
+export const graphQlApiGoerli =
+  "https://api.thegraph.com/subgraphs/name/vaibhavarora19/zkevm-bridge";
+
+export const graphQlApiZkEvm =
+  "https://api.thegraph.com/subgraphs/name/vaibhavarora19/zkevm-bridge-zk";
+
 export const bridgeABI = [
   {
     inputs: [],
