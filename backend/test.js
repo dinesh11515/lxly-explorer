@@ -22,13 +22,15 @@ async function parseEvent() {
     "0xc02a328512c02306994c3683e704f98fc171c87d0d09846d77fa70c806de1b04"
   );
 
+  console.log("rr", receipt);
+
   const decodedData = ethers.utils.defaultAbiCoder.decode(
     ["uint", "uint", "address", "uint", "address", "uint", "bytes", "uint"],
     receipt.logs[0].data
   );
 
-  console.log("event", decodedData[7].toString());
+  // console.log("event", decodedData[7].toString());
 }
 
-getData();
-// parseEvent();
+// getData();
+parseEvent();

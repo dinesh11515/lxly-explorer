@@ -1,0 +1,39 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: PolygonZkEVMBridge
+    network: polygon-zkevm-testnet
+    source:
+      address: "0xF6BEEeBB578e214CA9E23B0e9683454Ff88Ed2A7"
+      abi: PolygonZkEVMBridge
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BridgeEvent
+        - ClaimEvent
+        - EmergencyStateActivated
+        - EmergencyStateDeactivated
+        - Initialized
+        - NewWrappedToken
+      abis:
+        - name: PolygonZkEVMBridge
+          file: ./abis/PolygonZkEVMBridge.json
+      eventHandlers:
+        - event: BridgeEvent(uint8,uint32,address,uint32,address,uint256,bytes,uint32)
+          handler: handleBridgeEvent
+        - event: ClaimEvent(uint32,uint32,address,address,uint256)
+          handler: handleClaimEvent
+        - event: EmergencyStateActivated()
+          handler: handleEmergencyStateActivated
+        - event: EmergencyStateDeactivated()
+          handler: handleEmergencyStateDeactivated
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: NewWrappedToken(uint32,address,address,bytes)
+          handler: handleNewWrappedToken
+      file: ./src/polygon-zk-evm-bridge.ts

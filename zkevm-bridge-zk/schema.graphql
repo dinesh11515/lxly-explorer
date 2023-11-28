@@ -1,0 +1,61 @@
+type BridgeEvent @entity(immutable: true) {
+  id: Bytes!
+  leafType: Int! # uint8
+  originNetwork: BigInt! # uint32
+  originAddress: Bytes! # address
+  destinationNetwork: BigInt! # uint32
+  destinationAddress: Bytes! # address
+  amount: BigInt! # uint256
+  metadata: Bytes! # bytes
+  depositCount: BigInt! # uint32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ClaimEvent @entity(immutable: true) {
+  id: Bytes!
+  index: BigInt! # uint32
+  originNetwork: BigInt! # uint32
+  originAddress: Bytes! # address
+  destinationAddress: Bytes! # address
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type EmergencyStateActivated @entity(immutable: true) {
+  id: Bytes!
+
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type EmergencyStateDeactivated @entity(immutable: true) {
+  id: Bytes!
+
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Initialized @entity(immutable: true) {
+  id: Bytes!
+  version: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type NewWrappedToken @entity(immutable: true) {
+  id: Bytes!
+  originNetwork: BigInt! # uint32
+  originTokenAddress: Bytes! # address
+  wrappedTokenAddress: Bytes! # address
+  metadata: Bytes! # bytes
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
