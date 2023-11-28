@@ -1,5 +1,5 @@
 import "@phala/pink-env";
-import { Coders, AbiCoder, Contract, JsonRpcProvider } from "@phala/ethers";
+import { Coders, AbiCoder } from "@phala/ethers";
 
 type HexString = `0x${string}`;
 
@@ -42,13 +42,51 @@ enum Error {
   NotReady = "NotReady",
   AlreadyClaimed = "AlreadyClaimed",
 }
+function fetchRegisters(): any {
+  let headers = {
+    "Content-Type": "application/json",
+    "User-Agent": "phat-contract",
+  };
+  let query = JSON.stringify({
+    query: `{
+      newRegisters(first: 20) {
+        _address
+      }
+    }`,
+  });
+  let body = stringToHex(query);
+  let response = pink.httpRequest({
+    url: "https://api.studio.thegraph.com/query/59658/autoclaim/v0.1.1",
+    method: "POST",
+    headers,
+    body,
+    returnTextBody: true,
+  });
+  let respBody = response.body;
+  if (typeof respBody !== "string") {
+    throw Error.FailedToDecode;
+  }
+  respBody = JSON.parse(respBody);
+  return (respBody as any).data.newRegisters;
+}
 
 function fetchMerkleProofs(): any {
-  const url =
-    "https://bridge-api.public.zkevm-test.net/bridges/0x9A5d0A5aD88C00308C53aA0b692Af33edAe7d895";
+  const regsiters: any = fetchRegisters();
+  const url = "https://bridge-api.public.zkevm-test.net/bridges/";
   const merkleProofUrl =
     "https://bridge-api.public.zkevm-test.net/merkle-proof";
 
+  for (let i = 0; i < regsiters.length; i++) {
+    let response = pink.batchHttpRequest(
+      [
+        {
+          url: url,
+          returnTextBody: true,
+        },
+      ],
+      10000 // Param for timeout in milliseconds. Your Phat Contract script has a timeout of 10 seconds
+    )[0];
+  }
   let response = pink.httpRequest({
     url,
     method: "GET",
@@ -104,23 +142,16 @@ function fetchMerkleProofs(): any {
   ];
 }
 
+function stringToHex(str: string): string {
+  var hex = "";
+  for (var i = 0; i < str.length; i++) {
+    hex += str.charCodeAt(i).toString(16);
+  }
+  return "0x" + hex;
+}
+
 export default function main(): HexString {
   try {
-    // const provider = new JsonRpcProvider(
-    //   "https://eth-goerli.g.alchemy.com/v2/_JhWE6m1C1VYWqcaISsadFcxyqMZ5siL"
-    // );
-
-    const autoContract = new Contract(
-      contractAddress,
-      abi,
-      new JsonRpcProvider("goerli")
-    );
-
-    const registeredAddresses = autoContract.getRegisteredAddresses();
-    console.log(registeredAddresses);
-    // const respData = fetchMerkleProofs();
-    // console.log("response:", respData);
-
     // return encodeReply(respData);
     return "" as HexString;
   } catch (error) {
