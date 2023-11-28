@@ -14,9 +14,8 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - AdminChanged
-        - BeaconUpgraded
-        - Upgraded
+        - BridgeEvent
+        - ClaimEvent
       abis:
         - name: PolygonZkEVMBridge
           file: ./abis/PolygonZkEVMBridge.json
