@@ -1,8 +1,11 @@
+import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import StatusBadge from './StatusBadge';
 
 const RecentTransaction = ({ transaction }) => {
   const { status, sourceTxHash, created, destinationTxHash } = transaction;
+
+  const router = useRouter();
 
   const shortTxHash = sourceTxHash
     ? sourceTxHash.slice(0, 24) + '....'
@@ -13,7 +16,13 @@ const RecentTransaction = ({ transaction }) => {
       <li className='pl-4 flex-[0.25]'>
         <StatusBadge status={status} />
       </li>
-      <li className='pl-4 flex-[0.5] hover:underline'>{shortTxHash}</li>
+      <li
+        onClick={() => {
+          router.push(`/tx/${sourceTxHash ? sourceTxHash : destinationTxHash}`);
+        }}
+        className='pl-4 flex-[0.5] hover:underline'>
+        {shortTxHash}
+      </li>
       <li className='pl-4 flex-[0.25] text-[#737373]'>{created}</li>
     </ul>
   );

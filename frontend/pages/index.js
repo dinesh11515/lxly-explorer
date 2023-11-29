@@ -16,7 +16,6 @@ const inter = Inter({ subsets: ['latin'] });
 export default function Home() {
   return (
     <div>
-      {/* <Search /> */}
       <SearchBar />
       <Overview />
       <div className='flex gap-10 w-[90%] mx-auto'>
