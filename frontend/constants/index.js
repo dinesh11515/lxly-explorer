@@ -1,60 +1,8 @@
-export const DUMMY_DATA = [
+export const DUMMY_DATA_SOURCE = [
   {
     status: 'Delivered',
     nonce: 202323,
     sourceTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    destinationTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
-    created: '26 secs ago',
-  },
-  {
-    status: 'Delivered',
-    nonce: 202323,
-    sourceTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    destinationTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
-    created: '26 secs ago',
-  },
-  {
-    status: 'Inflight',
-    nonce: 202323,
-    sourceTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    destinationTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
-    created: '26 secs ago',
-  },
-  {
-    status: 'Inflight',
-    nonce: 202323,
-    sourceTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    destinationTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
-    created: '26 secs ago',
-  },
-  {
-    status: 'Inflight',
-    nonce: 202323,
-    sourceTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    destinationTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
-    created: '26 secs ago',
-  },
-  {
-    status: 'Inflight',
-    nonce: 202323,
-    sourceTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    destinationTxHash:
       '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
     from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
     created: '26 secs ago',
@@ -64,7 +12,37 @@ export const DUMMY_DATA = [
     nonce: 202323,
     sourceTxHash:
       '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    destinationTxHash:
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    sourceTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    sourceTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    sourceTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    sourceTxHash:
       '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
     from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
     created: '26 secs ago',
@@ -74,7 +52,13 @@ export const DUMMY_DATA = [
     nonce: 202323,
     sourceTxHash:
       '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    destinationTxHash:
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Delivered',
+    nonce: 202323,
+    sourceTxHash:
       '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
     from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
     created: '26 secs ago',
@@ -84,7 +68,13 @@ export const DUMMY_DATA = [
     nonce: 202323,
     sourceTxHash:
       '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    destinationTxHash:
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    sourceTxHash:
       '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
     from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
     created: '26 secs ago',
@@ -94,8 +84,6 @@ export const DUMMY_DATA = [
     nonce: 202323,
     sourceTxHash:
       '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
-    destinationTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
     from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
     created: '26 secs ago',
   },
@@ -104,6 +92,23 @@ export const DUMMY_DATA = [
     nonce: 202323,
     sourceTxHash:
       '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+];
+
+export const DUMMY_DATA_DESTINATION = [
+  {
+    status: 'Delivered',
+    nonce: 202323,
+    destinationTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Delivered',
+    nonce: 202323,
     destinationTxHash:
       '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
     from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
@@ -112,13 +117,95 @@ export const DUMMY_DATA = [
   {
     status: 'Inflight',
     nonce: 202323,
-    sourceTxHash:
-      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
     destinationTxHash:
       '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
     from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
     created: '26 secs ago',
   },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    destinationTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    destinationTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    destinationTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Delivered',
+    nonce: 202323,
+    destinationTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Delivered',
+    nonce: 202323,
+    destinationTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    destinationTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    destinationTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    destinationTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+  {
+    status: 'Inflight',
+    nonce: 202323,
+    destinationTxHash:
+      '0x421f5909098264a0f5278b0f735e3e4a4975b46912de40622afd453f0852cd6b',
+    from: '0xd42E8e149c109E15BFb10416c4181e6ae7A6145d',
+    created: '26 secs ago',
+  },
+];
+
+export const bridgeHeaders = [
+  { title: 'Status', flexWidth: '0.25' },
+  { title: 'Source Tx Hash', flexWidth: '0.5' },
+  { title: 'Created', flexWidth: '0.25' },
+];
+
+export const claimHeaders = [
+  { title: 'Status', flexWidth: '0.25' },
+  { title: 'Destination Tx Hash', flexWidth: '0.5' },
+  { title: 'Created', flexWidth: '0.25' },
 ];
 
 export const ZKEvmBridge = '0xF6BEEeBB578e214CA9E23B0e9683454Ff88Ed2A7'; //same on goerli and zkevm
