@@ -30,6 +30,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    getRecentTxs();
     setInterval(() => {
       getRecentTxs();
     }, 10000);

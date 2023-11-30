@@ -6,14 +6,14 @@ const TransactionItem = ({ icon, label, value, isTransaction = false }) => {
     <div
       className={`flex w-full  items-center ${
         isTransaction ? 'bg-[#1C1C1C]' : 'bg-[#161616] '
-      } p-5 rounded-sm font-Roboto mb-1`}>
+      } p-4 rounded-sm font-Roboto mb-1`}>
       <div className='flex items-center gap-2 w-[250px]'>
         {icon}
         <p className=' text-sm text-[#f0f0f0]'>{label}</p>
       </div>
       <div className='flex gap-2 items-center '>
         <p
-          className={`text-sm text-[#b9b9b9] font-light tracking-wide ${
+          className={` break-words max-w-[1000px] text-sm text-[#b9b9b9]  font-light tracking-wide  ${
             isTransaction && 'hover:underline hover:text-white cursor-pointer'
           } `}>
           {value}

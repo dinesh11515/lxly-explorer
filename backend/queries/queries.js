@@ -36,6 +36,11 @@ export const bridgeQueryFromTxHash = gql`
       blockTimestamp
       network
       blockNumber
+      from
+      transactionHash
+      gasLimit
+      metadata
+      amount
     }
   }
 `;
@@ -50,6 +55,10 @@ export const claimQueryFromTxHash = gql`
       blockTimestamp
       network
       blockNumber
+      from
+      amount
+      transactionHash
+      gasLimit
     }
   }
 `;
@@ -63,6 +72,13 @@ export const bridgeQueryFromIndex = gql`
       destinationAddress
       blockTimestamp
       network
+      amount
+      metadata
+      gasLimit
+      destinationAddress
+      blockNumber
+      transactionHash
+      from
     }
   }
 `;
@@ -74,8 +90,14 @@ export const claimQueryFromIndex = gql`
       index
       originNetwork
       destinationAddress
+      blockNumber
       blockTimestamp
       network
+      amount
+      gasLimit
+      destinationAddress
+      from
+      transactionHash
     }
   }
 `;

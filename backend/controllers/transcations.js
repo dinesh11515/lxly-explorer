@@ -126,10 +126,17 @@ export const getTransactionFromTxHash = async (req, res, next) => {
 
       oppositeBridgeTx = (
         await goerliClient.query(bridgeQueryFromIndex, { index }).toPromise()
-      ).data.claimEvents;
+      ).data.bridgeEvents;
     }
 
-    return res.status(200).json({ currentTx, oppositeBridgeTx });
+    console.log({ currentTx, oppositeBridgeTx });
+    return res.status(200).json({
+      currentTx,
+      oppositeTx:
+        oppositeBridgeTx && oppositeBridgeTx.length > 0
+          ? oppositeBridgeTx[0]
+          : oppositeBridgeTx,
+    });
   } catch (error) {
     Logging.error(error);
   }
