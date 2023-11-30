@@ -1,9 +1,11 @@
 import { createClient, cacheExchange, fetchExchange } from "@urql/core";
 import { graphQlApiGoerli, graphQlApiZkEvm } from "../constants/index.js";
 import {
+  bridgeQueryFromAddress,
   bridgeQueryFromIndex,
   bridgeQueryFromTxHash,
   claimQuery,
+  claimQueryFromAddress,
   claimQueryFromIndex,
   claimQueryFromTxHash,
   recentBridgeQuery,
@@ -128,6 +130,60 @@ export const getTransactionFromTxHash = async (req, res, next) => {
     }
 
     return res.status(200).json({ currentTx, oppositeBridgeTx });
+  } catch (error) {
+    Logging.error(error);
+  }
+};
+
+export const getTransactionFromAddress = async (req, res, next) => {
+  try {
+    const { address } = req.params;
+
+    const goerliClient = createClient({
+      url: graphQlApiGoerli,
+      exchanges: [cacheExchange, fetchExchange],
+    });
+    const zkevmClient = createClient({
+      url: graphQlApiZkEvm,
+      exchanges: [cacheExchange, fetchExchange],
+    });
+
+    const [txBridgeGoerli, txBridgezkEvm, txClaimGoerli, txClaimzkEvm] =
+      await Promise.all([
+        (
+          await goerliClient
+            .query(bridgeQueryFromAddress, { address })
+            .toPromise()
+        ).data.bridgeEvents,
+        (
+          await zkevmClient
+            .query(bridgeQueryFromAddress, { address })
+            .toPromise()
+        ).data.bridgeEvents,
+        (
+          await goerliClient
+            .query(claimQueryFromAddress, { address })
+            .toPromise()
+        ).data.claimEvents,
+        (
+          await zkevmClient
+            .query(claimQueryFromAddress, { address })
+            .toPromise()
+        ).data.claimEvents,
+      ]);
+
+    let txData;
+    if (txBridgeGoerli.length > 0) {
+      txData = txBridgeGoerli;
+    } else if (txBridgezkEvm.length > 0) {
+      txData = txClaimzkEvm;
+    } else if (txClaimGoerli.length > 0) {
+      txData = txClaimGoerli;
+    } else if (txClaimzkEvm.length > 0) {
+      txData = txClaimzkEvm;
+    }
+
+    return res.status(200).json({ tx: txData });
   } catch (error) {
     Logging.error(error);
   }

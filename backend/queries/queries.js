@@ -35,6 +35,7 @@ export const bridgeQueryFromTxHash = gql`
       destinationAddress
       blockTimestamp
       network
+      blockNumber
     }
   }
 `;
@@ -48,6 +49,7 @@ export const claimQueryFromTxHash = gql`
       destinationAddress
       blockTimestamp
       network
+      blockNumber
     }
   }
 `;
@@ -87,6 +89,8 @@ export const recentBridgeQuery = gql`
       destinationAddress
       blockTimestamp
       network
+      blockNumber
+      transactionHash
     }
   }
 `;
@@ -100,6 +104,8 @@ export const recentClaimQuery = gql`
       destinationAddress
       blockTimestamp
       network
+      blockNumber
+      transactionHash
     }
   }
 `;
