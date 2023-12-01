@@ -1,18 +1,9 @@
 import "@phala/pink-env";
-import { Coders, AbiCoder } from "@phala/ethers";
+import { AbiCoder } from "@phala/ethers";
 
 type HexString = `0x${string}`;
 
-const abi = [
-  "function getRegisteredAddresses() public view returns (address[] memory)",
-];
-
-const contractAddress = "0xD438DD5934C6A317EAD35C0d10a61Ee39B38ae64";
-const rpc = "";
-
 const types = [
-  "uint256",
-  "uint256",
   "bytes32[32]",
   "uint32",
   "bytes32",
@@ -29,7 +20,11 @@ function encodeReply(data: any): HexString {
   const coder = AbiCoder.defaultAbiCoder();
   return coder.encode(types, data) as HexString;
 }
-
+function encodeBytes(data: any): HexString {
+  // return Coders.encode([uintCoder, uintCoder], reply) as HexString;
+  const coder = AbiCoder.defaultAbiCoder();
+  return coder.encode(["uint", "bytes[]"], [0, data]) as HexString;
+}
 // Defined in OracleConsumerContract.sol
 const TYPE_READY = 0;
 const TYPE_NOTREADY = 2;
@@ -41,6 +36,7 @@ enum Error {
   MalformedRequest = "MalformedRequest",
   NotReady = "NotReady",
   AlreadyClaimed = "AlreadyClaimed",
+  NothingToClaim = "NothingToClaim",
 }
 function fetchRegisters(): any {
   let headers = {
@@ -56,7 +52,7 @@ function fetchRegisters(): any {
   });
   let body = stringToHex(query);
   let response = pink.httpRequest({
-    url: "https://api.studio.thegraph.com/query/59658/autoclaim/v0.1.1",
+    url: "https://api.studio.thegraph.com/query/59658/autoclaim/v0.2.0",
     method: "POST",
     headers,
     body,
@@ -73,73 +69,65 @@ function fetchRegisters(): any {
 function fetchMerkleProofs(): any {
   const regsiters: any = fetchRegisters();
   const url = "https://bridge-api.public.zkevm-test.net/bridges/";
-  const merkleProofUrl =
-    "https://bridge-api.public.zkevm-test.net/merkle-proof";
+  let AllProofs: any = [];
 
   for (let i = 0; i < regsiters.length; i++) {
-    let response = pink.batchHttpRequest(
-      [
-        {
-          url: url,
-          returnTextBody: true,
-        },
-      ],
-      10000 // Param for timeout in milliseconds. Your Phat Contract script has a timeout of 10 seconds
-    )[0];
-  }
-  let response = pink.httpRequest({
-    url,
-    method: "GET",
-    returnTextBody: true,
-  });
-  console.log(response);
-  if (response.statusCode !== 200) {
-    throw Error.FailedToFetchData;
-  }
-  let respBody = response.body;
-  if (typeof respBody !== "string") {
-    throw Error.FailedToDecode;
-  }
-  respBody = JSON.parse(respBody);
+    let response = pink.httpRequest({
+      url: url + regsiters[i]["_address"],
+      method: "GET",
+      returnTextBody: true,
+    });
+    let respBody: any = response.body;
+    if (typeof respBody !== "string") {
+      throw Error.FailedToDecode;
+    }
+    respBody = JSON.parse(respBody);
+    if (respBody.deposits.length > 0) {
+      for (let i = 0; i < respBody.deposits.length; i++) {
+        if (
+          respBody.deposits[i].ready_for_claim &&
+          respBody.deposits[i].claim_tx_hash == "" &&
+          respBody.deposits[i].dest_net === 0
+        ) {
+          let currentDeposit = respBody.deposits[i];
+          let merkleProofs = pink.httpRequest({
+            url: `https://bridge-api.public.zkevm-test.net/merkle-proof?deposit_cnt=${respBody.deposits[i].deposit_cnt}&net_id=${respBody.deposits[i].orig_net}`,
+            method: "GET",
+            returnTextBody: true,
+          });
+          let merkleProofsBody: any = merkleProofs.body;
+          if (typeof merkleProofsBody !== "string") {
+            throw Error.FailedToDecode;
+          }
+          merkleProofsBody = JSON.parse(merkleProofsBody);
+          let proof = merkleProofsBody.proof;
 
-  let currentDeposit = (respBody as any).deposits[0];
+          const encodedProofs = encodeReply([
+            proof.merkle_proof,
+            currentDeposit.deposit_cnt,
+            proof.main_exit_root,
+            proof.rollup_exit_root,
+            currentDeposit.orig_net,
+            currentDeposit.orig_addr,
+            currentDeposit.dest_net,
+            currentDeposit.dest_addr,
+            currentDeposit.amount,
+            currentDeposit.metadata,
+          ]);
 
-  if (!currentDeposit.ready_for_claim) {
-    throw Error.NotReady;
+          AllProofs.push(encodedProofs);
+
+          if (AllProofs.length == 1) {
+            break;
+          }
+        }
+      }
+    }
   }
-  if (currentDeposit.claim_tx_hash != "") {
-    throw Error.AlreadyClaimed;
+  if (AllProofs.length == 0) {
+    throw Error.NothingToClaim;
   }
-
-  response = pink.httpRequest({
-    url: `https://bridge-api.public.zkevm-test.net/merkle-proof?deposit_cnt=${currentDeposit.deposit_cnt}&net_id=${currentDeposit.orig_net}`,
-    method: "GET",
-    returnTextBody: true,
-  });
-  console.log(response);
-
-  respBody = response.body;
-  if (typeof respBody !== "string") {
-    throw Error.FailedToDecode;
-  }
-  respBody = JSON.parse(respBody);
-  let proof = (respBody as any).proof;
-  console.log(proof);
-
-  return [
-    TYPE_READY,
-    1,
-    proof.merkle_proof,
-    currentDeposit.deposit_cnt,
-    proof.main_exit_root,
-    proof.rollup_exit_root,
-    currentDeposit.orig_net,
-    currentDeposit.orig_addr,
-    currentDeposit.dest_net,
-    currentDeposit.dest_addr,
-    currentDeposit.amount,
-    currentDeposit.metadata,
-  ];
+  return encodeBytes(AllProofs);
 }
 
 function stringToHex(str: string): string {
@@ -152,8 +140,10 @@ function stringToHex(str: string): string {
 
 export default function main(): HexString {
   try {
-    // return encodeReply(respData);
-    return "" as HexString;
+    const proofs = fetchMerkleProofs();
+    let proof = proofs.slice(0, 2) + "0" + proofs.slice(2);
+    console.log(proof);
+    return proofs as HexString;
   } catch (error) {
     throw error;
   }
