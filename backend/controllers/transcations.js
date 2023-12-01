@@ -161,36 +161,47 @@ export const getTransactionFromAddress = async (req, res, next) => {
           await goerliClient
             .query(bridgeQueryFromAddress, { address })
             .toPromise()
-        ).data.bridgeEvents,
+        ).data?.bridgeEvents,
         (
           await zkevmClient
             .query(bridgeQueryFromAddress, { address })
             .toPromise()
-        ).data.bridgeEvents,
+        ).data?.bridgeEvents,
         (
           await goerliClient
             .query(claimQueryFromAddress, { address })
             .toPromise()
-        ).data.claimEvents,
+        ).data?.claimEvents,
         (
           await zkevmClient
             .query(claimQueryFromAddress, { address })
             .toPromise()
-        ).data.claimEvents,
+        ).data?.claimEvents,
       ]);
 
-    let txData;
-    if (txBridgeGoerli.length > 0) {
-      txData = txBridgeGoerli;
-    } else if (txBridgezkEvm.length > 0) {
-      txData = txClaimzkEvm;
-    } else if (txClaimGoerli.length > 0) {
-      txData = txClaimGoerli;
-    } else if (txClaimzkEvm.length > 0) {
-      txData = txClaimzkEvm;
-    }
+    console.log("ss", [
+      txBridgeGoerli,
+      txBridgezkEvm,
+      txClaimGoerli,
+      txClaimzkEvm,
+    ]);
+    let bridgeTxs = [];
+    let claimTxs = [];
 
-    return res.status(200).json({ tx: txData });
+    if (txBridgeGoerli) {
+      bridgeTxs.push(...txBridgeGoerli);
+    }
+    if (txBridgezkEvm) {
+      bridgeTxs.push(...txBridgezkEvm);
+    }
+    if (txClaimGoerli) {
+      claimTxs.push(...txClaimGoerli);
+    }
+    if (txClaimzkEvm) {
+      claimTxs.push(...txClaimzkEvm);
+    }
+    console.log("first", bridgeTxs, claimTxs);
+    return res.status(200).json({ bridgeTxs, claimTxs });
   } catch (error) {
     Logging.error(error);
   }

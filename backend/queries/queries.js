@@ -135,7 +135,13 @@ export const recentClaimQuery = gql`
 export const bridgeQueryFromAddress = gql`
   query bridgeQuery($address: Bytes!) {
     bridgeEvents(
-      where: { or: { destinationAddress: $address, originAddress: $address } }
+      where: {
+        or: [
+          { destinationAddress: $address }
+          { originAddress: $address }
+          { from: $address }
+        ]
+      }
     ) {
       id
       depositCount
@@ -143,6 +149,8 @@ export const bridgeQueryFromAddress = gql`
       destinationAddress
       blockTimestamp
       network
+      transactionHash
+      blockNumber
     }
   }
 `;
@@ -150,7 +158,13 @@ export const bridgeQueryFromAddress = gql`
 export const claimQueryFromAddress = gql`
   query claimQuery($address: Bytes!) {
     claimEvents(
-      where: { or: { destinationAddress: $address, originAddress: $address } }
+      where: {
+        or: [
+          { destinationAddress: $address }
+          { from: $address }
+          { to: $address }
+        ]
+      }
     ) {
       id
       index
@@ -158,6 +172,8 @@ export const claimQueryFromAddress = gql`
       destinationAddress
       blockTimestamp
       network
+      transactionHash
+      blockNumber
     }
   }
 `;
