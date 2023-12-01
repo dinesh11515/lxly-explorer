@@ -13,7 +13,6 @@ contract AutoClaim is PhatRollupAnchor, Ownable {
     event NewRegister(address _address, uint timepoint);
 
     uint constant TYPE_READY = 0;
-    uint constant TYPE_NOTREADY = 2;
 
     IPolygonZkEVMBridge public immutable polygonZkEVMBridge;
 
@@ -46,11 +45,9 @@ contract AutoClaim is PhatRollupAnchor, Ownable {
     }
 
     function _onMessageReceived(bytes calldata action) internal override {
-        bytes[] memory data = abi.decode(action, (bytes[]));
+        (, bytes[] memory data) = abi.decode(action, (uint, bytes[]));
         for (uint8 i = 0; i < data.length; ) {
             (
-                uint respType,
-                uint id,
                 bytes32[32] memory smtProof,
                 uint32 index,
                 bytes32 mainnetExitRoot,
@@ -64,8 +61,6 @@ contract AutoClaim is PhatRollupAnchor, Ownable {
             ) = abi.decode(
                     data[i],
                     (
-                        uint,
-                        uint,
                         bytes32[32],
                         uint32,
                         bytes32,
@@ -78,22 +73,20 @@ contract AutoClaim is PhatRollupAnchor, Ownable {
                         bytes
                     )
                 );
-            if (respType == TYPE_READY) {
-                polygonZkEVMBridge.claimMessage(
-                    smtProof,
-                    index,
-                    mainnetExitRoot,
-                    rollupExitRoot,
-                    originNetwork,
-                    originAddress,
-                    destinationNetwork,
-                    destinationAddress,
-                    amount,
-                    metadata
-                );
-            } else if (respType == TYPE_NOTREADY) {
-                emit NotReady(id);
-            }
+
+            polygonZkEVMBridge.claimMessage(
+                smtProof,
+                index,
+                mainnetExitRoot,
+                rollupExitRoot,
+                originNetwork,
+                originAddress,
+                destinationNetwork,
+                destinationAddress,
+                amount,
+                metadata
+            );
+
             unchecked {
                 i++;
             }
