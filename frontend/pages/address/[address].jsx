@@ -1,17 +1,12 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import UserTransactionOverview from "@/components/Overview/UserTransactionOverview";
-import RecentTransactionList from "@/components/RecentTrans/RecentTransactionList";
-import {
-  bridgeHeaders,
-  claimHeaders,
-  DUMMY_DATA_DESTINATION,
-  DUMMY_DATA_SOURCE,
-  SERVER_URI,
-} from "@/constants";
-import { getRequest } from "@/apis";
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import UserTransactionOverview from '@/components/Overview/UserTransactionOverview';
+import RecentTransactionList from '@/components/RecentTrans/RecentTransactionList';
+import { addressPageHeaders, SERVER_URI } from '@/constants';
+import { getRequest } from '@/apis';
+import TableShimmer from '@/components/Skeletons/TableShimmer';
 
 const Address = () => {
   const [bridgedTxDetails, setBridgedTxDetails] = useState(null);
@@ -24,7 +19,6 @@ const Address = () => {
     const data = await getRequest(
       `${SERVER_URI}/transaction/address/${address}`
     );
-    console.log("data", data);
 
     setBridgedTxDetails(data.bridgeTxs);
     setClaimTxDetails(data.claimTxs);
@@ -37,29 +31,33 @@ const Address = () => {
   }, [address]);
 
   return (
-    <section className=" mx-auto font-Roboto ">
-      <div className="py-10 w-[90%] mx-auto">
-        <p className="text-xs text-[#A0A0A0]">Address</p>
-        <p className="text-white text-lg">{address}</p>
+    <section className=' mx-auto font-Roboto '>
+      <div className='py-10 w-[90%] mx-auto'>
+        <p className='text-xs text-[#A0A0A0]'>Address</p>
+        <p className='text-white text-lg'>{address}</p>
       </div>
 
       <UserTransactionOverview />
 
-      <div className="flex flex-col ">
+      <div className='flex flex-col '>
+        {!bridgedTxDetails && <TableShimmer />}
+
         {bridgedTxDetails && bridgedTxDetails.length > 0 && (
           <RecentTransactionList
-            title={"Bridged"}
+            isAddressPage={true}
+            title={'Bridged'}
             data={bridgedTxDetails}
-            headers={bridgeHeaders}
+            headers={addressPageHeaders}
           />
         )}
 
-        <div className="-mt-20">
+        <div className='-mt-20'>
           {claimTxDetails && claimTxDetails.length > 0 && (
             <RecentTransactionList
-              title={"Claimed"}
+              isAddressPage={true}
+              title={'Claimed'}
               data={claimTxDetails}
-              headers={claimHeaders}
+              headers={addressPageHeaders}
             />
           )}
         </div>

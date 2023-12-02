@@ -4,7 +4,7 @@ import React from 'react';
 import TransactionListHeader from './TransactionListHeader';
 import RecentTransaction from './RecentTransaction';
 
-const RecentTransactionList = ({ headers, data, title }) => {
+const RecentTransactionList = ({ headers, data, title, isAddressPage }) => {
   return (
     <div className='mt-20 font-Roboto w-[90%] mx-auto text-white pb-10'>
       <p className='text-sm font-light pb-2 border-b-[1px]  border-[#161616]'>
@@ -16,6 +16,7 @@ const RecentTransactionList = ({ headers, data, title }) => {
 
         {data.map((transaction, index) => (
           <RecentTransaction
+            isAddressPage={isAddressPage}
             transaction={transaction}
             key={index}
           />

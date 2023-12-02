@@ -10,6 +10,14 @@ export const claimHeaders = [
   { title: 'Block', flexWidth: '0.25' },
 ];
 
+export const addressPageHeaders = [
+  { title: 'Network', flexWidth: '0.15' },
+  { title: 'Tx Hash', flexWidth: '0.24' },
+  { title: 'Sender', flexWidth: '0.24' },
+  { title: 'Time', flexWidth: '0.24' },
+  { title: 'Block', flexWidth: '0.15' },
+];
+
 export const ZKEvmBridge = '0xF6BEEeBB578e214CA9E23B0e9683454Ff88Ed2A7'; //same on goerli and zkevm
 
 export const SERVER_URI = 'http://localhost:8080';

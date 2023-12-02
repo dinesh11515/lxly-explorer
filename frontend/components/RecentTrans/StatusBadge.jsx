@@ -1,12 +1,13 @@
 import { BsCheck } from 'react-icons/bs';
 import { PiArrowsClockwiseBold } from 'react-icons/pi';
+import { FaEthereum } from 'react-icons/fa';
 
 const StatusBadge = ({ status }) => {
-  const isDelivered = status === 'Delivered';
+  const isDelivered = status === 'Goerli';
   const badgeStyle = isDelivered
-    ? 'bg-green-500 text-black'
+    ? 'bg-white text-black'
     : 'bg-[#A77DFF] text-black';
-  const Icon = isDelivered ? BsCheck : PiArrowsClockwiseBold;
+  const Icon = isDelivered ? FaEthereum : PiArrowsClockwiseBold;
 
   return (
     <p
