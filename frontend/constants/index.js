@@ -21,6 +21,7 @@ export const addressPageHeaders = [
 export const ZKEvmBridge = "0xF6BEEeBB578e214CA9E23B0e9683454Ff88Ed2A7"; //same on goerli and zkevm
 
 export const SERVER_URI = "https://lxly.onrender.com";
+// export const SERVER_URI = "http://localhost:8080";
 
 export const DUMMY_DATA_SOURCE = [
   {

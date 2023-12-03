@@ -179,12 +179,6 @@ export const getTransactionFromAddress = async (req, res, next) => {
         ).data?.claimEvents,
       ]);
 
-    console.log("ss", [
-      txBridgeGoerli,
-      txBridgezkEvm,
-      txClaimGoerli,
-      txClaimzkEvm,
-    ]);
     let bridgeTxs = [];
     let claimTxs = [];
 
@@ -200,7 +194,14 @@ export const getTransactionFromAddress = async (req, res, next) => {
     if (txClaimzkEvm) {
       claimTxs.push(...txClaimzkEvm);
     }
-    console.log("first", bridgeTxs, claimTxs);
+
+    bridgeTxs.sort(
+      (a, b) => Number(b.blockTimestamp) - Number(a.blockTimestamp)
+    );
+    claimTxs.sort(
+      (a, b) => Number(b.blockTimestamp) - Number(a.blockTimestamp)
+    );
+
     return res.status(200).json({ bridgeTxs, claimTxs });
   } catch (error) {
     Logging.error(error);
