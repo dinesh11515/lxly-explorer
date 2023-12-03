@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { Inter } from 'next/font/google';
-import Search from '@/components/search';
-import SearchBar from '@/components/UI/SearchBar';
-import Overview from '@/components/Overview/Overview';
-import RecentTransactionList from '@/components/RecentTrans/RecentTransactionList';
-import { bridgeHeaders, claimHeaders, SERVER_URI } from '@/constants';
-import { useEffect, useState } from 'react';
-import { getRequest } from '@/apis';
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import Search from "@/components/search";
+import SearchBar from "@/components/UI/SearchBar";
+import Overview from "@/components/Overview/Overview";
+import RecentTransactionList from "@/components/RecentTrans/RecentTransactionList";
+import { bridgeHeaders, claimHeaders, SERVER_URI } from "@/constants";
+import { useEffect, useState } from "react";
+import { getRequest } from "@/apis";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [claimTxs, setClaimTxs] = useState([]);
@@ -18,7 +18,7 @@ export default function Home() {
 
   const getRecentTxs = async () => {
     const data = await getRequest(`${SERVER_URI}/recent/transactions`);
-
+    console.log(data);
     setBridgeTxs(data.bridgeTxs);
     setClaimTxs(data.claimTxs);
   };
@@ -34,17 +34,17 @@ export default function Home() {
     <div>
       <SearchBar />
       <Overview />
-      <div className='flex gap-10 w-[90%] mx-auto'>
+      <div className="flex gap-10 w-[90%] mx-auto">
         {bridgeTxs.length > 0 && (
           <RecentTransactionList
-            title={'Bridge'}
+            title={"Bridge"}
             data={bridgeTxs}
             headers={bridgeHeaders}
           />
         )}
         {claimTxs.length > 0 && (
           <RecentTransactionList
-            title={'Claim'}
+            title={"Claim"}
             data={claimTxs}
             headers={claimHeaders}
           />
