@@ -51,7 +51,7 @@ const Address = () => {
           />
         )}
 
-        <div className='-mt-20'>
+        <div className={`${!bridgedTxDetails && '-mt-20'}`}>
           {claimTxDetails && claimTxDetails.length > 0 && (
             <RecentTransactionList
               isAddressPage={true}

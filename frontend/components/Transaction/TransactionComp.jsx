@@ -1,6 +1,10 @@
 import React from 'react';
 
-const TransactionComp = ({ title, transactionDetails, renderTransactionItem }) => {
+const TransactionComp = ({
+  title,
+  transactionDetails,
+  renderTransactionItem,
+}) => {
   return (
     <div>
       <p className='text-[#737373] font-light mb-1'>{title}</p>
@@ -16,7 +20,8 @@ const TransactionComp = ({ title, transactionDetails, renderTransactionItem }) =
                 item.icon,
                 item.label,
                 item.value,
-                item.isTransaction
+                item.isTransaction,
+                title
               )
             )}
           </div>

@@ -86,12 +86,20 @@ const Transaction = () => {
     getTransactionInfo();
   }, []);
 
-  const renderTransactionItem = (icon, label, value, isTransaction = false) => (
+  const renderTransactionItem = (
+    icon,
+    label,
+    value,
+    isTransaction = false,
+    title
+  ) => (
     <TransactionItem
       icon={icon}
       label={label}
       value={value}
       isTransaction={isTransaction}
+      title={title}
+      isClaimAvailable={claimedTxInfo?.length}
     />
   );
 

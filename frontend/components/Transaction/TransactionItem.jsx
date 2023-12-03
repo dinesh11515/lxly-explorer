@@ -1,9 +1,28 @@
+import { Tooltip } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IoCopy } from 'react-icons/io5';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const TransactionItem = ({ icon, label, value, isTransaction = false }) => {
+const TransactionItem = ({
+  icon,
+  label,
+  value,
+  isTransaction = false,
+  title,
+  isClaimAvailable,
+}) => {
   const router = useRouter();
+
+  const claimTransactionHandler = () => {
+    // @Dinesh add logic for claiming transaction from txPage
+    try {
+      toast.success('Claimed transaction!');
+    } catch (error) {
+      toast.error('Claimed failed!');
+    }
+  };
 
   return (
     <div
@@ -28,7 +47,7 @@ const TransactionItem = ({ icon, label, value, isTransaction = false }) => {
           className={` break-words max-w-[1000px] text-sm text-[#b9b9b9]  font-light tracking-wide  ${
             isTransaction && 'hover:underline hover:text-white cursor-pointer'
           } `}>
-          {value}
+          {value}{' '}
         </p>
 
         {isTransaction ? (
@@ -37,7 +56,19 @@ const TransactionItem = ({ icon, label, value, isTransaction = false }) => {
             size={15}
           />
         ) : null}
+
+        {!isClaimAvailable &&
+        isTransaction &&
+        value.length === 66 &&
+        title === 'Bridged Transaction Info' ? (
+          <Tooltip title='Claim the bridged transaction'>
+            <button className=' ml-6 px-6 py-1 rounded-md bg-[#464646] font-medium hover:bg-[#111111] text-xs'>
+              Claim
+            </button>
+          </Tooltip>
+        ) : null}
       </div>
+      <ToastContainer theme='dark' />
     </div>
   );
 };
