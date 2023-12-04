@@ -12,7 +12,8 @@ export const getTransactionDetails = (
   timestamp,
   nonce,
   sender,
-  network
+  network,
+  status
 ) => {
   return [
     [
@@ -21,6 +22,13 @@ export const getTransactionDetails = (
         label: "Transaction Hash",
         value: transaction,
         isTransaction: true,
+      },
+    ],
+    [
+      {
+        icon: <MdOutlineStickyNote2 className={iconStyle} size={15} />,
+        label: "Status",
+        value: status,
       },
     ],
     [
@@ -90,13 +98,13 @@ export const getBridgedTransactionDetails = ({
         value: timestamp,
       },
     ],
-    [
-      {
-        icon: <MdOutlineStickyNote2 className={iconStyle} size={15} />,
-        label: "Status",
-        value: status,
-      },
-    ],
+    // [
+    //   {
+    //     icon: <MdOutlineStickyNote2 className={iconStyle} size={15} />,
+    //     label: "Status",
+    //     value: status,
+    //   },
+    // ],
     [
       {
         icon: <MdOutlineStickyNote2 className={iconStyle} size={15} />,
@@ -166,13 +174,13 @@ export const getClaimedTransactionDetails = ({
         value: timestamp,
       },
     ],
-    [
-      {
-        icon: <MdOutlineStickyNote2 className={iconStyle} size={15} />,
-        label: "Status",
-        value: status,
-      },
-    ],
+    // [
+    //   {
+    //     icon: <MdOutlineStickyNote2 className={iconStyle} size={15} />,
+    //     label: "Status",
+    //     value: status,
+    //   },
+    // ],
     [
       {
         icon: <MdOutlineStickyNote2 className={iconStyle} size={15} />,

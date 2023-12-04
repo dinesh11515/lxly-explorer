@@ -18,7 +18,6 @@ export default function Home() {
 
   const getRecentTxs = async () => {
     const data = await getRequest(`${SERVER_URI}/recent/transactions`);
-    console.log(data);
     setBridgeTxs(data.bridgeTxs);
     setClaimTxs(data.claimTxs);
   };

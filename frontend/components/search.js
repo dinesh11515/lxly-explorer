@@ -1,17 +1,17 @@
-import React, { useRef, useState, useEffect } from 'react';
-import axios from 'axios';
-import { ZKEvmBridgeAbi, ZKEvmBridge } from '../constants';
-import { writeContract, waitForTransaction } from '@wagmi/core';
+import React, { useRef, useState, useEffect } from "react";
+import axios from "axios";
+import { ZKEvmBridgeAbi, ZKEvmBridge } from "@/constants";
+import { writeContract, waitForTransaction } from "@wagmi/core";
 
 export default function Search() {
   const [data, setData] = useState([]);
 
-  const baseURL = 'https://bridge-api.public.zkevm-test.net/';
+  const baseURL = "https://bridge-api.public.zkevm-test.net/";
   const axiosInstance = axios.create({
     baseURL,
   });
-  const mekrleProofString = '/merkle-proof';
-  const getClaimsFromAcc = '/bridges/';
+  const mekrleProofString = "/merkle-proof";
+  const getClaimsFromAcc = "/bridges/";
 
   const claim = async (currentDeposit) => {
     try {
@@ -26,7 +26,7 @@ export default function Search() {
       const { hash } = await writeContract({
         address: ZKEvmBridge,
         abi: ZKEvmBridgeAbi,
-        functionName: 'claimMessage',
+        functionName: "claimMessage",
         args: [
           proof.merkle_proof,
           currentDeposit.deposit_cnt,
@@ -40,18 +40,18 @@ export default function Search() {
           currentDeposit.metadata,
         ],
       });
-      console.log('claim message succesfully send: ', hash);
+      console.log("claim message succesfully send: ", hash);
       await waitForTransaction({
         hash,
       });
-      console.log('mined tx');
+      console.log("mined tx");
     } catch (e) {
-      console.log(e, 'claim fn');
+      console.log(e, "claim fn");
     }
   };
   const getDetails = async () => {
     try {
-      const address = '0xD1A36C9aDE0C3814360c4ea7923BCf1B5F4eb7b8';
+      const address = "0xD1A36C9aDE0C3814360c4ea7923BCf1B5F4eb7b8";
       const depositAxions = await axiosInstance.get(
         getClaimsFromAcc + address,
         {
@@ -62,7 +62,7 @@ export default function Search() {
       console.log(depositsArray);
       setData(depositsArray);
     } catch (e) {
-      console.log(e, 'getDetails');
+      console.log(e, "getDetails");
     }
   };
   useEffect(() => {
