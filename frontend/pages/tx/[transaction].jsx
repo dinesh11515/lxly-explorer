@@ -66,7 +66,7 @@ const Transaction = () => {
       });
 
       console.log(
-        "txxx",
+        'txxx',
         claimedTransactionDetails,
         claimedTransactionDetails[0]
       );
@@ -145,13 +145,7 @@ const Transaction = () => {
       `${SERVER_URI}/transaction/txHash/${transaction}`
     );
 
-<<<<<<< Updated upstream
-    console.log("returned data is", data);
-
-    if (data.currentTx.__typename === "BridgeEvent") {
-=======
     if (data.currentTx.__typename === 'BridgeEvent') {
->>>>>>> Stashed changes
       setTransactionStates(data.currentTx, data.oppositeTx);
     } else {
       setTransactionStates(data.oppositeTx, data.currentTx);
@@ -249,24 +243,14 @@ const Transaction = () => {
             renderTransactionItem={renderTransactionItem}
           />
         )}
-<<<<<<< Updated upstream
         {claimedTxInfo?.length > 0 &&
           claimedTxInfo[0][0].value !== undefined && (
             <TransactionComp
-              title={"Claimed Transaction Info"}
+              title={'Claimed Transaction Info'}
               transactionDetails={claimedTxInfo}
               renderTransactionItem={renderTransactionItem}
             />
           )}
-=======
-        {claimedTxInfo && (
-          <TransactionComp
-            title={'Claimed Transaction Info'}
-            transactionDetails={claimedTxInfo}
-            renderTransactionItem={renderTransactionItem}
-          />
-        )}
->>>>>>> Stashed changes
       </div>
     </div>
   );
