@@ -13,7 +13,7 @@ const UserTransactionOverview = ({
     <div className='flex w-[90%] mx-auto mt-16 gap-10 border-b-[1px] pb-5 border-[#161616]'>
       <DashboardItem
         title='Total Messages'
-        value='5,803,644'
+        value='644'
         renderIcon={() => (
           <Image
             src='/assets/chart.png'
@@ -27,7 +27,7 @@ const UserTransactionOverview = ({
 
       <DashboardItem
         title='Total Volume'
-        value='3,798'
+        value='298'
         renderIcon={() => (
           <IoStatsChart className='text-[#737373] text-2xl font-thin' />
         )}
@@ -37,7 +37,7 @@ const UserTransactionOverview = ({
 
       <DashboardItem
         title='Inflight Messages'
-        value='25,939'
+        value='39'
         renderIcon={() => (
           <CgArrangeBack className='text-[#737373] text-2xl font-thin' />
         )}
