@@ -65,6 +65,12 @@ const Transaction = () => {
         status: "Delivered",
       });
 
+      console.log(
+        "txxx",
+        claimedTransactionDetails,
+        claimedTransactionDetails[0]
+      );
+
       setClaimedTxInfo(claimedTransactionDetails);
     }
     setBridgedTxInfo(bridgedTransactionDetails);
@@ -139,7 +145,7 @@ const Transaction = () => {
       `${SERVER_URI}/transaction/txHash/${transaction}`
     );
 
-    console.log(data);
+    console.log("returned data is", data);
 
     if (data.currentTx.__typename === "BridgeEvent") {
       setTransactionStates(data.currentTx, data.oppositeTx);
@@ -236,13 +242,14 @@ const Transaction = () => {
             renderTransactionItem={renderTransactionItem}
           />
         )}
-        {claimedTxInfo && (
-          <TransactionComp
-            title={"Claimed Transaction Info"}
-            transactionDetails={claimedTxInfo}
-            renderTransactionItem={renderTransactionItem}
-          />
-        )}
+        {claimedTxInfo?.length > 0 &&
+          claimedTxInfo[0][0].value !== undefined && (
+            <TransactionComp
+              title={"Claimed Transaction Info"}
+              transactionDetails={claimedTxInfo}
+              renderTransactionItem={renderTransactionItem}
+            />
+          )}
       </div>
     </div>
   );
