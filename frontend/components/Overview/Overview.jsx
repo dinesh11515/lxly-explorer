@@ -10,7 +10,7 @@ const Overview = () => {
     <div className='flex w-[90%] mx-auto mt-16 gap-10 border-b-[1px] pb-5 border-[#161616]'>
       <DashboardItem
         title='Total Messages'
-        value='5,803,644'
+        value='803,644'
         renderIcon={() => (
           <Image
             src='/assets/chart.png'
@@ -32,7 +32,7 @@ const Overview = () => {
       />
       <DashboardItem
         title='Inflight Messages'
-        value='25,939'
+        value='5,939'
         renderIcon={() => (
           <CgArrangeBack className='text-[#737373] text-2xl font-thin' />
         )}
@@ -41,7 +41,7 @@ const Overview = () => {
       />
       <DashboardItem
         title='Total UA'
-        value='36,983'
+        value='5,983'
         renderIcon={() => (
           <IoPieChart className='text-[#737373] text-2xl font-thin' />
         )}
@@ -50,7 +50,7 @@ const Overview = () => {
       />
       <DashboardItem
         title='Networks'
-        value='3'
+        value='2'
         renderIcon={() => (
           <IoMdGitNetwork className='text-[#737373] text-2xl font-thin' />
         )}
