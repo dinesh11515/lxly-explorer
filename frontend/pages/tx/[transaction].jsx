@@ -52,7 +52,7 @@ const Transaction = () => {
       status: "Delivered",
     });
 
-    if (secondTx) {
+    if (secondTx && secondTx.id) {
       const claimedTransactionDetails = getClaimedTransactionDetails({
         transaction: secondTx.transactionHash,
         blockNum: secondTx.blockNumber,
@@ -149,7 +149,7 @@ const Transaction = () => {
 
     let status = "";
 
-    if (data.currentTx && data.oppositeTx) {
+    if (data.currentTx && data.oppositeTx && data.oppositeTx.id) {
       status = "Delivered";
     } else {
       const address = data.currentTx.destinationAddress;
